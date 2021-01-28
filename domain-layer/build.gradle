@@ -10,4 +10,5 @@ java {
 
 dependencies {
     implementation Deps.kotlin_stdlib
+    api Deps.coroutines
 }
