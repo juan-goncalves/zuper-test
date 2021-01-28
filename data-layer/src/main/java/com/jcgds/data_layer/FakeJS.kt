@@ -135,11 +135,4 @@ val fakeJS = """
     }
 
     setTimeout(_tick, 1000)
-    startOperation("wfjkwef")
-    startOperation("12ddew2")
-    startOperation("rbrght2")
-    startOperation("khlqw8")
-    startOperation("erglk039")
-    startOperation("23kj325")
-    startOperation("23khf933")
 """.trimIndent()

@@ -11,9 +11,11 @@ import com.jcgds.data_layer.schemas.toDomain
 import com.jcgds.domain.entities.Message
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.withContext
 
 class JavaScriptOperationDataSource constructor(
     applicationContext: Context,
@@ -51,6 +53,13 @@ class JavaScriptOperationDataSource constructor(
         addJavascriptInterface(bridge, "injectedObj")
         evaluateJavascript("window.jumbo = injectedObj;", null)
         evaluateJavascript(fakeJS, null)
+    }
+
+    override suspend fun startOperation(id: String) = withContext(Dispatchers.Main) {
+        webView.evaluateJavascript(
+            "startOperation('$id');",
+            null,
+        )
     }
 
     fun dispose() {

@@ -7,4 +7,6 @@ interface OperationDataSource {
 
     val messageQueue: Flow<Message>
 
+    suspend fun startOperation(id: String)
+
 }

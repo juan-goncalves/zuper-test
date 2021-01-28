@@ -30,7 +30,8 @@ class FakeOperationRepository constructor(
 
 
     override suspend fun startOperation(id: String) {
-        TODO("Not yet implemented")
+        // TODO: Handle errors
+        operationDataSource.startOperation(id)
     }
 
 }
