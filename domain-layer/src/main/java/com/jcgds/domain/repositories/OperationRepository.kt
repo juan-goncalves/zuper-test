@@ -9,8 +9,4 @@ interface OperationRepository {
 
     suspend fun startOperation(id: String)
 
-    suspend fun updateOperationProgress(id: String, progress: Int)
-
-    suspend fun finishOperation(id: String)
-
 }
