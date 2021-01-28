@@ -31,6 +31,8 @@ class OperationsAdapter : RecyclerView.Adapter<OperationsAdapter.ViewHolder>() {
         val operation = differ.currentList[position]
         holder.binding.apply {
             idTextView.text = operation.id
+            stateTextView.text = operation.state
+            progressTextView.text = "(${operation.progress})%"
         }
     }
 
