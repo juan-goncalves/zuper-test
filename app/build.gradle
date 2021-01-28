@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -51,6 +53,12 @@ dependencies {
     implementation Deps.androidx_constraint_layout
     implementation Deps.androidx_lifecycle_viewmodel_ktx
     implementation Deps.androidx_lifecycle_livedata_ktx
+
+    implementation Deps.dagger_hilt
+    implementation Deps.androidx_hilt_lifecycle_viewmodel
+
+    kapt Deps.dagger_hilt_compiler
+    kapt Deps.androidx_hilt_compiler
 
     testImplementation Deps.junit
     androidTestImplementation Deps.androidx_junit

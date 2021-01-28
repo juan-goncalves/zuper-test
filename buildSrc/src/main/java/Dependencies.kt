@@ -12,6 +12,9 @@ object Versions {
 
     const val retrofit = "2.6.0"
 
+    const val dagger_hilt = "2.28-alpha"
+    const val androidx_hilt = "1.0.0-alpha01"
+
     const val junit = "4.13.1"
     const val androidx_junit = "1.1.1"
     const val espresso = "3.3.0"
@@ -19,27 +22,28 @@ object Versions {
 
 @Suppress("unused")
 object Deps {
-    const val kotlin_gradle_plugin =
-        "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin_stdlib}"
+    const val kotlin_gradle_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin_stdlib}"
     const val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin_stdlib}"
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
-    const val android_coroutines =
-        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+    const val android_coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
     const val android_gradle = "com.android.tools.build:gradle:${Versions.android_gradle}"
 
     const val androidx_core_ktx = "androidx.core:core-ktx:${Versions.androidx_core}"
     const val androidx_appcompat = "androidx.appcompat:appcompat:${Versions.androidx_appcompat}"
     const val androidx_activity_ktx = "androidx.activity:activity-ktx:${Versions.androidx_activity}"
-    const val androidx_constraint_layout =
-        "androidx.constraintlayout:constraintlayout:${Versions.androidx_constraint_layout}"
-    const val androidx_lifecycle_viewmodel_ktx =
-        "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.androidx_lifecycle}"
-    const val androidx_lifecycle_livedata_ktx =
-        "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.androidx_lifecycle}"
+    const val androidx_constraint_layout = "androidx.constraintlayout:constraintlayout:${Versions.androidx_constraint_layout}"
+    const val androidx_lifecycle_viewmodel_ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.androidx_lifecycle}"
+    const val androidx_lifecycle_livedata_ktx = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.androidx_lifecycle}"
     const val google_material = "com.google.android.material:material:${Versions.google_material}"
 
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val moshi = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
+
+    const val dagger_hilt = "com.google.dagger:hilt-android:${Versions.dagger_hilt}"
+    const val dagger_hilt_compiler = "com.google.dagger:hilt-android-compiler:${Versions.dagger_hilt}"
+    const val dagger_hilt_gradle_plugin = "com.google.dagger:hilt-android-gradle-plugin:${Versions.dagger_hilt}"
+    const val androidx_hilt_lifecycle_viewmodel = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.androidx_hilt}"
+    const val androidx_hilt_compiler = "androidx.hilt:hilt-compiler:${Versions.androidx_hilt}"
 
     const val junit = "junit:junit:${Versions.junit}"
     const val androidx_junit = "androidx.test.ext:junit:${Versions.androidx_junit}"

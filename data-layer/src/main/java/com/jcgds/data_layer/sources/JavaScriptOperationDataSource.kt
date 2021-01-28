@@ -53,4 +53,8 @@ class JavaScriptOperationDataSource constructor(
         evaluateJavascript(fakeJS, null)
     }
 
+    fun dispose() {
+        webView.destroy()
+    }
+
 }

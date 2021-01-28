@@ -7,13 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jcgds.zuper.databinding.OperationsActivityBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class OperationsActivity : AppCompatActivity() {
 
-    private val viewModel: OperationsViewModel by viewModels()
+    private val viewModel by viewModels<OperationsViewModel>()
     private val operationsAdapter: OperationsAdapter = OperationsAdapter()
-
     private lateinit var binding: OperationsActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
