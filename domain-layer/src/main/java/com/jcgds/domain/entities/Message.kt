@@ -4,5 +4,5 @@ data class Message(
     val operationId: String,
     val message: String,
     val progress: Int,
-    val state: String
+    val state: Operation.State
 )

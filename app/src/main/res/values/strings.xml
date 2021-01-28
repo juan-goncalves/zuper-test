@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Zuper</string>
+    <string name="operation_success_state">Success</string>
+    <string name="operation_error_state">Error</string>
 </resources>

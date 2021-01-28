@@ -29,10 +29,15 @@ class OperationsAdapter : RecyclerView.Adapter<OperationsAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val operation = differ.currentList[position]
+        val context = holder.binding.root.context
         holder.binding.apply {
             idTextView.text = operation.id
-            stateTextView.text = operation.state
             progressIndicator.setProgressCompat(operation.progress, true)
+            stateTextView.text = when (operation.state) {
+                Operation.State.Success -> context.getString(R.string.operation_success_state)
+                Operation.State.Error -> context.getString(R.string.operation_error_state)
+                else -> ""
+            }
         }
     }
 
