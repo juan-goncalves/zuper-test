@@ -8,7 +8,14 @@ import kotlinx.coroutines.flow.flowOf
 class FakeOperationRepository : OperationRepository {
 
     override val operationsStream: Flow<Set<Operation>>
-        get() = flowOf()
+        get() = flowOf(
+            setOf(
+                Operation("5dab2aa8", "", 80),
+                Operation("c1da5320", "", 100),
+                Operation("3e64c76a", "", 0),
+                Operation("88a02c2c", "", 10),
+            )
+        )
 
     override suspend fun startOperation(id: String) {
         TODO("Not yet implemented")

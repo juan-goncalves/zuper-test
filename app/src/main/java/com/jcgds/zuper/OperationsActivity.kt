@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.jcgds.zuper.databinding.OperationsActivityBinding
 
 class OperationsActivity : AppCompatActivity() {
 
     private val viewModel: OperationsViewModel by viewModels()
+    private val operationsAdapter: OperationsAdapter = OperationsAdapter()
 
     private lateinit var binding: OperationsActivityBinding
 
@@ -20,13 +22,17 @@ class OperationsActivity : AppCompatActivity() {
         initObservers()
     }
 
-    private fun configureView() {
-        // TODO: Configure RecyclerView
+    private fun configureView() = with(binding) {
+        operationsRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = operationsAdapter
+        }
     }
 
     private fun initObservers() {
         viewModel.operations.observe(this) { operations ->
             Log.d("OperationsActivity", "Received new operations list: $operations")
+            operationsAdapter.data = operations
         }
     }
 
