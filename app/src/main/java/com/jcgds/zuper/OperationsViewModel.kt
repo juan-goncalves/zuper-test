@@ -19,7 +19,7 @@ class OperationsViewModel(application: Application) : AndroidViewModel(applicati
     private val operationsRepository: OperationRepository = FakeOperationRepository(ds!!)
 
     val operations: LiveData<List<Operation>> = operationsRepository.operationsStream
-        .map { ops -> ops.toList().sortedBy { it.id } }
+        .map { ops -> ops.toList() }
         .asLiveData()
 
     override fun onCleared() {
