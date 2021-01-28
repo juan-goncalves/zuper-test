@@ -10,6 +10,8 @@ object Versions {
     const val androidx_lifecycle = "2.3.0-alpha05"
     const val google_material = "1.2.1"
 
+    const val retrofit = "2.6.0"
+
     const val junit = "4.13.1"
     const val androidx_junit = "1.1.1"
     const val espresso = "3.3.0"
@@ -35,6 +37,9 @@ object Deps {
     const val androidx_lifecycle_livedata_ktx =
         "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.androidx_lifecycle}"
     const val google_material = "com.google.android.material:material:${Versions.google_material}"
+
+    const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    const val moshi = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
 
     const val junit = "junit:junit:${Versions.junit}"
     const val androidx_junit = "androidx.test.ext:junit:${Versions.androidx_junit}"
