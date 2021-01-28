@@ -32,7 +32,7 @@ class OperationsAdapter : RecyclerView.Adapter<OperationsAdapter.ViewHolder>() {
         holder.binding.apply {
             idTextView.text = operation.id
             stateTextView.text = operation.state
-            progressTextView.text = "(${operation.progress})%"
+            progressIndicator.setProgressCompat(operation.progress, true)
         }
     }
 

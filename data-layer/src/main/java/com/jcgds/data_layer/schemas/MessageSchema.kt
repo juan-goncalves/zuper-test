@@ -10,4 +10,4 @@ data class MessageSchema(
     @field:Json(name = "state") val state: String? = null
 )
 
-fun MessageSchema.toDomain(): Message = Message(operationId, message, progress ?: -1, state ?: "_")
+fun MessageSchema.toDomain(): Message = Message(operationId, message, progress ?: 100, state ?: "_")

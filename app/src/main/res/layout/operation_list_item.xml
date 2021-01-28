@@ -12,6 +12,14 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/idTextView"
             style="@style/TextAppearance.MaterialComponents.Headline6"
@@ -32,16 +40,6 @@
             app:layout_constraintStart_toStartOf="@id/idTextView"
             app:layout_constraintTop_toBottomOf="@id/idTextView"
             tools:text="completed" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/progressTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            app:layout_constraintBottom_toBottomOf="@+id/idTextView"
-            app:layout_constraintStart_toEndOf="@id/idTextView"
-            app:layout_constraintTop_toTopOf="@id/idTextView"
-            tools:text="(90%)" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

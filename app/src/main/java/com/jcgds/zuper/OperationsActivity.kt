@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jcgds.zuper.databinding.OperationsActivityBinding
+
 
 class OperationsActivity : AppCompatActivity() {
 
@@ -26,6 +28,7 @@ class OperationsActivity : AppCompatActivity() {
         operationsRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = operationsAdapter
+            (itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
         }
     }
 

@@ -8,7 +8,7 @@ object Versions {
     const val androidx_activity = "1.1.0"
     const val androidx_constraint_layout = "2.0.0-rc1"
     const val androidx_lifecycle = "2.3.0-alpha05"
-    const val google_material = "1.2.1"
+    const val google_material = "1.3.0-rc01"
 
     const val retrofit = "2.6.0"
 
