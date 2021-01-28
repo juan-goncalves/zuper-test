@@ -6,6 +6,7 @@ object Versions {
     const val androidx_core = "1.5.0-alpha01"
     const val androidx_appcompat = "1.3.0-alpha01"
     const val androidx_constraint_layout = "2.0.0-rc1"
+    const val androidx_lifecycle = "2.3.0-alpha05"
     const val google_material = "1.2.1"
 
     const val junit = "4.13.1"
@@ -25,6 +26,10 @@ object Deps {
     const val androidx_appcompat = "androidx.appcompat:appcompat:${Versions.androidx_appcompat}"
     const val androidx_constraint_layout =
         "androidx.constraintlayout:constraintlayout:${Versions.androidx_constraint_layout}"
+    const val androidx_lifecycle_viewmodel_ktx =
+        "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.androidx_lifecycle}"
+    const val androidx_lifecycle_livedata_ktx =
+        "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.androidx_lifecycle}"
     const val google_material = "com.google.android.material:material:${Versions.google_material}"
 
     const val junit = "junit:junit:${Versions.junit}"
