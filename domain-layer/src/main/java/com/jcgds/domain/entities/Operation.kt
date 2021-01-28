@@ -1,3 +1,3 @@
 package com.jcgds.domain.entities
 
-class Operation
+data class Operation(val id: String)
