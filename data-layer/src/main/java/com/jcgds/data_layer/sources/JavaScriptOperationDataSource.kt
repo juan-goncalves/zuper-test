@@ -6,7 +6,11 @@ import android.util.Log
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import com.jcgds.data_layer.fakeJS
+import com.jcgds.data_layer.schemas.MessageSchema
+import com.jcgds.data_layer.schemas.toDomain
 import com.jcgds.domain.entities.Message
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -23,13 +27,21 @@ class JavaScriptOperationDataSource constructor(
         onBufferOverflow = BufferOverflow.SUSPEND
     )
 
+    private val moshi = Moshi.Builder().build()
+    private val adapter: JsonAdapter<MessageSchema> = moshi.adapter(MessageSchema::class.java)
+
     private val bridge = object {
         @JavascriptInterface
-        fun postMessage(message: String) {
-            // TODO: Map message into Message object
-            // TODO: Emit the message to the queue
-            val emitted = _messageQueue.tryEmit(Message("wjefhj223", message, 0, ""))
-            Log.d("JavaScriptOperationDS", "Received JS message: $message (relayed = $emitted)")
+        fun postMessage(messageStr: String) {
+            Log.d("JavaScriptOperationDS", "Received message from JS: $messageStr")
+            val message = adapter.fromJson(messageStr)?.toDomain()
+            if (message != null) {
+                val emitted = _messageQueue.tryEmit(message)
+                Log.d(
+                    "JavaScriptOperationDS",
+                    "Parse JS message: $message (relayed = $emitted)"
+                )
+            }
         }
     }
 

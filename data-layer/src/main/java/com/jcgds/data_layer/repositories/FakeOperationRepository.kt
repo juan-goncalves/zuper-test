@@ -18,9 +18,9 @@ class FakeOperationRepository constructor(
             Log.d("FakeOperationRepo", "Received message: $message")
             val operation = operations[message.operationId]
             val updatedOperation = if (operation == null) {
-                Operation(message.operationId, message.state ?: "none", 0)
+                Operation(message.operationId, message.state, message.progress)
             } else {
-                operation.copy(state = message.state!!, progress = message.progress!!)
+                operation.copy(state = message.state, progress = message.progress)
             }
 
             // TODO: Improve perf
