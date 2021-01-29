@@ -5,7 +5,6 @@ import android.content.Context
 import android.util.Log
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
-import com.jcgds.data_layer.fakeJS
 import com.jcgds.data_layer.local.models.MessageSchema
 import com.jcgds.data_layer.local.models.toDomain
 import com.jcgds.domain.entities.Message
@@ -51,7 +50,6 @@ class JavaScriptOperationDataSource constructor(
         settings.javaScriptEnabled = true
         addJavascriptInterface(bridge, "injectedObj")
         evaluateJavascript("window.jumbo = injectedObj;", null)
-        evaluateJavascript(fakeJS, null)
     }
 
     override suspend fun startOperation(id: String) = withContext(Dispatchers.Main) {

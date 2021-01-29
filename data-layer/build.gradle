@@ -40,6 +40,6 @@ dependencies {
     implementation Deps.kotlin_stdlib
     implementation Deps.androidx_core_ktx
     implementation Deps.androidx_appcompat
-    implementation Deps.retrofit
-    implementation Deps.moshi
+    api Deps.retrofit
+    api Deps.moshi
 }
