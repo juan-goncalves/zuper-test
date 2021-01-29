@@ -9,7 +9,6 @@ import com.jcgds.data_layer.fakeJS
 import com.jcgds.data_layer.schemas.MessageSchema
 import com.jcgds.data_layer.schemas.toDomain
 import com.jcgds.domain.entities.Message
-import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
@@ -29,8 +28,7 @@ class JavaScriptOperationDataSource constructor(
         onBufferOverflow = BufferOverflow.SUSPEND
     )
 
-    private val moshi = Moshi.Builder().build()
-    private val adapter: JsonAdapter<MessageSchema> = moshi.adapter(MessageSchema::class.java)
+    private val adapter = Moshi.Builder().build().adapter(MessageSchema::class.java)
 
     private val bridge = object {
         @JavascriptInterface
@@ -60,10 +58,6 @@ class JavaScriptOperationDataSource constructor(
             "startOperation('$id');",
             null,
         )
-    }
-
-    fun dispose() {
-        webView.destroy()
     }
 
 }
