@@ -12,6 +12,7 @@ import com.jcgds.domain.entities.Message
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.withContext
@@ -24,8 +25,8 @@ class JavaScriptOperationDataSource constructor(
         get() = _messageQueue
 
     private val _messageQueue = MutableSharedFlow<Message>(
-        extraBufferCapacity = 10,
-        onBufferOverflow = BufferOverflow.SUSPEND
+        extraBufferCapacity = Channel.UNLIMITED,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
     private val adapter = Moshi.Builder().build().adapter(MessageSchema::class.java)
