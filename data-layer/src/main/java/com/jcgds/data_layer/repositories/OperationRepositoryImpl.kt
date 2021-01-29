@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class OperationRepositoryImpl constructor(
-    private val localOperationDs: LocalOperationDataSource
+    private val localOperationDs: LocalOperationDataSource,
 ) : OperationRepository {
 
     private val operationsLookup: MutableMap<String, Operation> = hashMapOf()
@@ -25,9 +25,7 @@ class OperationRepositoryImpl constructor(
             operations
         }
 
-
     override suspend fun startOperation(id: String) {
-        // TODO: Handle errors
         localOperationDs.startOperation(id)
     }
 

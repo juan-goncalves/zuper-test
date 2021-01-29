@@ -26,9 +26,8 @@ class OperationsViewModel @ViewModelInject constructor(
 
     private fun startOperations(amount: Int) {
         val charPool = ('a'..'z') + ('A'..'Z') + ('0'..'9')
-
-        for (i in 1..amount) {
-            viewModelScope.launch(Dispatchers.Default) {
+        viewModelScope.launch(Dispatchers.Default) {
+            for (i in 1..amount) {
                 val randomString = (1..7)
                     .map { Random.nextInt(0, charPool.size) }
                     .map(charPool::get)
