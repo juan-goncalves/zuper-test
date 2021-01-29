@@ -1,4 +1,4 @@
-package com.jcgds.data_layer.schemas
+package com.jcgds.data_layer.local.models
 
 import com.jcgds.domain.entities.Message
 import com.jcgds.domain.entities.Operation

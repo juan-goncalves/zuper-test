@@ -1,4 +1,4 @@
-package com.jcgds.data_layer.sources
+package com.jcgds.data_layer.local.sources
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,8 +6,8 @@ import android.util.Log
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import com.jcgds.data_layer.fakeJS
-import com.jcgds.data_layer.schemas.MessageSchema
-import com.jcgds.data_layer.schemas.toDomain
+import com.jcgds.data_layer.local.models.MessageSchema
+import com.jcgds.data_layer.local.models.toDomain
 import com.jcgds.domain.entities.Message
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +19,7 @@ import kotlinx.coroutines.withContext
 
 class JavaScriptOperationDataSource constructor(
     applicationContext: Context,
-) : OperationDataSource {
+) : LocalOperationDataSource {
 
     override val messageQueue: Flow<Message>
         get() = _messageQueue

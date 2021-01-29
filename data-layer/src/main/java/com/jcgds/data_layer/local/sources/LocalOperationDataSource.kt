@@ -1,9 +1,9 @@
-package com.jcgds.data_layer.sources
+package com.jcgds.data_layer.local.sources
 
 import com.jcgds.domain.entities.Message
 import kotlinx.coroutines.flow.Flow
 
-interface OperationDataSource {
+interface LocalOperationDataSource {
 
     val messageQueue: Flow<Message>
 
