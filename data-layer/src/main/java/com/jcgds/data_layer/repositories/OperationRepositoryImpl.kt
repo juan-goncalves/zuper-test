@@ -2,6 +2,7 @@ package com.jcgds.data_layer.repositories
 
 import com.jcgds.data_layer.sources.OperationRunner
 import com.jcgds.domain.entities.Operation
+import com.jcgds.domain.entities.Result
 import com.jcgds.domain.repositories.OperationRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -27,9 +28,10 @@ class OperationRepositoryImpl constructor(
         runner.startOperation(id)
     }
 
-    override suspend fun initializeExecutor() {
+    override suspend fun initializeExecutor(): Result<Unit> {
         // TODO: Handle exceptions and wrap with Result<>
         runner.initialize()
+        return Result.Success(Unit)
     }
 
 }

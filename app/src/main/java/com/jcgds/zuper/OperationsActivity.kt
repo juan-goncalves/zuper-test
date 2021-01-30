@@ -1,7 +1,7 @@
 package com.jcgds.zuper
 
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -34,8 +34,11 @@ class OperationsActivity : AppCompatActivity() {
 
     private fun initObservers() {
         viewModel.operations.observe(this) { operations ->
-            Log.d("OperationsActivity", "Received new operations list: $operations")
             operationsAdapter.data = operations
+        }
+
+        viewModel.showErrorState.observe(this) { shouldShow ->
+            binding.errorState.visibility = if (shouldShow) View.VISIBLE else View.GONE
         }
     }
 

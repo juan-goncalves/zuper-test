@@ -1,11 +1,9 @@
 package com.jcgds.zuper
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.jcgds.domain.entities.Operation
+import com.jcgds.domain.entities.Result
 import com.jcgds.domain.repositories.OperationRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,13 +14,17 @@ class OperationsViewModel @ViewModelInject constructor(
     private val operationsRepository: OperationRepository,
 ) : ViewModel() {
 
-    val operations: LiveData<List<Operation>> = operationsRepository.operationsStream
-        .asLiveData()
+    val operations: LiveData<List<Operation>> = operationsRepository.operationsStream.asLiveData()
+
+    val showErrorState: LiveData<Boolean> get() = _showErrorState
+    private val _showErrorState: MutableLiveData<Boolean> = MutableLiveData(false)
 
     init {
         viewModelScope.launch {
-            operationsRepository.initializeExecutor()
-            startOperations(200)
+            when (operationsRepository.initializeExecutor()) {
+                is Result.Success -> startOperations(200)
+                is Result.Failure -> _showErrorState.postValue(true)
+            }
         }
     }
 
