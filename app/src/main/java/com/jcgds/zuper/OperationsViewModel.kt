@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.jcgds.domain.entities.Operation
 import com.jcgds.domain.repositories.OperationRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.random.Random
@@ -18,7 +17,6 @@ class OperationsViewModel @ViewModelInject constructor(
 ) : ViewModel() {
 
     val operations: LiveData<List<Operation>> = operationsRepository.operationsStream
-        .map { ops -> ops.toList() }
         .asLiveData()
 
     init {

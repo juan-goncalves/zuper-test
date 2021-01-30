@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface OperationRepository {
 
-    val operationsStream: Flow<Set<Operation>>
+    val operationsStream: Flow<List<Operation>>
 
     suspend fun initializeExecutor()
 

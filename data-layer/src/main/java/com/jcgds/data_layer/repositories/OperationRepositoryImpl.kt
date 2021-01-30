@@ -10,19 +10,16 @@ class OperationRepositoryImpl constructor(
     private val runner: OperationRunner,
 ) : OperationRepository {
 
-    private val operationsLookup: MutableMap<String, Operation> = hashMapOf()
-    private val operations: MutableSet<Operation> = hashSetOf()
+    private val operations: MutableMap<String, Operation> = LinkedHashMap()
 
-    override val operationsStream: Flow<Set<Operation>>
+    override val operationsStream: Flow<List<Operation>>
         get() = runner.messageQueue.map { message ->
-            val operation = operationsLookup[message.operationId]
+            val operation = operations[message.operationId]
             val updatedOp = operation?.copy(state = message.state, progress = message.progress)
                 ?: Operation(message.operationId, message.state, message.progress)
 
-            if (operation != null) operations.remove(operation)
-            operations.add(updatedOp)
-            operationsLookup[message.operationId] = updatedOp
-            operations
+            operations[message.operationId] = updatedOp
+            operations.values.toList()
         }
 
     override suspend fun startOperation(id: String) {
