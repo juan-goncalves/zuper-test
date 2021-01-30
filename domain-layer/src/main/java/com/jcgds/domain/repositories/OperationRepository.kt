@@ -7,6 +7,8 @@ interface OperationRepository {
 
     val operationsStream: Flow<Set<Operation>>
 
+    suspend fun initializeExecutor()
+
     // TODO: return Result<Operation>
     suspend fun startOperation(id: String)
 

@@ -7,7 +7,7 @@ import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import com.jcgds.data_layer.local.models.MessageSchema
 import com.jcgds.data_layer.local.models.toDomain
-import com.jcgds.data_layer.network.services.ZuperAwsService
+import com.jcgds.data_layer.network.sources.JavaScriptDataSource
 import com.jcgds.domain.entities.Message
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.Dispatchers
@@ -19,10 +19,10 @@ import kotlinx.coroutines.withContext
 
 class JavaScriptOperationDataSource constructor(
     applicationContext: Context,
-    private val zuperService: ZuperAwsService
-) : LocalOperationDataSource {
+    private val jsProvider: JavaScriptDataSource,
+) : OperationDataSource {
 
-    private var initialized = false
+    private var runnerHasBeenInitialized = false
 
     override val messageQueue: Flow<Message>
         get() = _messageQueue
@@ -32,12 +32,12 @@ class JavaScriptOperationDataSource constructor(
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
-    private suspend fun initializeIfNecessary() {
-        if (initialized) return
+    override suspend fun initializeExecutor() {
+        if (runnerHasBeenInitialized) return
 
-        val code = getOperationsJsCode()
+        val code = jsProvider.getOperationsRunner()
         webView.evaluateJavascript(code, null)
-        initialized = true
+        runnerHasBeenInitialized = true
     }
 
     private val adapter = Moshi.Builder().build().adapter(MessageSchema::class.java)
@@ -65,16 +65,12 @@ class JavaScriptOperationDataSource constructor(
     }
 
     override suspend fun startOperation(id: String) = withContext(Dispatchers.Main) {
-        initializeIfNecessary()
+        require(runnerHasBeenInitialized) { "The operations runner has not been initialized" }
+
         webView.evaluateJavascript(
             "startOperation('$id');",
             null,
         )
-    }
-
-    private suspend fun getOperationsJsCode(): String {
-        val response = zuperService.downloadOperationsJsFile()
-        return response.charStream().readText()
     }
 
 }

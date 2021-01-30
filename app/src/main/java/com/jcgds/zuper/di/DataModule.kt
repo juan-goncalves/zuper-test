@@ -2,8 +2,9 @@ package com.jcgds.zuper.di
 
 import android.content.Context
 import com.jcgds.data_layer.local.sources.JavaScriptOperationDataSource
-import com.jcgds.data_layer.local.sources.LocalOperationDataSource
+import com.jcgds.data_layer.local.sources.OperationDataSource
 import com.jcgds.data_layer.network.services.ZuperAwsService
+import com.jcgds.data_layer.network.sources.JavaScriptDataSource
 import com.jcgds.data_layer.repositories.OperationRepositoryImpl
 import com.jcgds.domain.repositories.OperationRepository
 import dagger.Module
@@ -18,13 +19,20 @@ object DataModule {
 
     @Provides
     fun provideOperationRepository(
-        dataSource: LocalOperationDataSource
+        dataSource: OperationDataSource
     ): OperationRepository = OperationRepositoryImpl(dataSource)
+
+    @Provides
+    fun provideJsDataSource(
+        zuperService: ZuperAwsService,
+    ): JavaScriptDataSource {
+        return JavaScriptDataSource(zuperService)
+    }
 
     @Provides
     fun provideOperationDataSource(
         @ApplicationContext context: Context,
-        jsService: ZuperAwsService
-    ): LocalOperationDataSource = JavaScriptOperationDataSource(context, jsService)
+        jsProvider: JavaScriptDataSource
+    ): OperationDataSource = JavaScriptOperationDataSource(context, jsProvider)
 
 }
