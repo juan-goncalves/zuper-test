@@ -1,7 +1,9 @@
 package com.jcgds.zuper
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -38,7 +40,21 @@ class OperationsAdapter : RecyclerView.Adapter<OperationsAdapter.ViewHolder>() {
                 Operation.State.Error -> context.getString(R.string.operation_error_state)
                 else -> ""
             }
+
+            val overrideIndicatorColor = getIndicatorColorOverride(operation, context)
+            if (overrideIndicatorColor != null) {
+                progressIndicator.setIndicatorColor(overrideIndicatorColor)
+            }
         }
+    }
+
+    private fun getIndicatorColorOverride(
+        operation: Operation,
+        context: Context
+    ) = when (operation.state) {
+        Operation.State.Error -> ResourcesCompat.getColor(context.resources, R.color.red, null)
+        Operation.State.Success -> ResourcesCompat.getColor(context.resources, R.color.green, null)
+        else -> null
     }
 
     inner class ViewHolder(val binding: OperationListItemBinding) :
