@@ -7,7 +7,8 @@ import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import com.jcgds.data_layer.local.models.MessageSchema
 import com.jcgds.data_layer.local.models.toDomain
-import com.jcgds.data_layer.network.sources.JavaScriptDataSource
+import com.jcgds.data_layer.sources.JavaScriptProvider
+import com.jcgds.data_layer.sources.OperationRunner
 import com.jcgds.domain.entities.Message
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.Dispatchers
@@ -17,12 +18,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.withContext
 
-class JavaScriptOperationDataSource constructor(
+class JavaScriptOperationRunner constructor(
     applicationContext: Context,
-    private val jsProvider: JavaScriptDataSource,
-) : OperationDataSource {
+    private val jsProvider: JavaScriptProvider,
+) : OperationRunner {
 
-    private var runnerHasBeenInitialized = false
+    private var initialized = false
 
     override val messageQueue: Flow<Message>
         get() = _messageQueue
@@ -32,12 +33,12 @@ class JavaScriptOperationDataSource constructor(
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
-    override suspend fun initializeExecutor() {
-        if (runnerHasBeenInitialized) return
+    override suspend fun initialize() {
+        if (initialized) return
 
         val code = jsProvider.getOperationsRunner()
         webView.evaluateJavascript(code, null)
-        runnerHasBeenInitialized = true
+        initialized = true
     }
 
     private val adapter = Moshi.Builder().build().adapter(MessageSchema::class.java)
@@ -65,7 +66,7 @@ class JavaScriptOperationDataSource constructor(
     }
 
     override suspend fun startOperation(id: String) = withContext(Dispatchers.Main) {
-        require(runnerHasBeenInitialized) { "The operations runner has not been initialized" }
+        require(initialized) { "The operations runner has not been initialized" }
 
         webView.evaluateJavascript(
             "startOperation('$id');",

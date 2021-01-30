@@ -1,11 +1,12 @@
 package com.jcgds.zuper.di
 
 import android.content.Context
-import com.jcgds.data_layer.local.sources.JavaScriptOperationDataSource
-import com.jcgds.data_layer.local.sources.OperationDataSource
+import com.jcgds.data_layer.local.sources.JavaScriptOperationRunner
 import com.jcgds.data_layer.network.services.ZuperAwsService
-import com.jcgds.data_layer.network.sources.JavaScriptDataSource
+import com.jcgds.data_layer.network.sources.ZuperJavaScriptProvider
 import com.jcgds.data_layer.repositories.OperationRepositoryImpl
+import com.jcgds.data_layer.sources.JavaScriptProvider
+import com.jcgds.data_layer.sources.OperationRunner
 import com.jcgds.domain.repositories.OperationRepository
 import dagger.Module
 import dagger.Provides
@@ -19,20 +20,18 @@ object DataModule {
 
     @Provides
     fun provideOperationRepository(
-        dataSource: OperationDataSource
-    ): OperationRepository = OperationRepositoryImpl(dataSource)
+        runner: OperationRunner
+    ): OperationRepository = OperationRepositoryImpl(runner)
 
     @Provides
     fun provideJsDataSource(
         zuperService: ZuperAwsService,
-    ): JavaScriptDataSource {
-        return JavaScriptDataSource(zuperService)
-    }
+    ): JavaScriptProvider = ZuperJavaScriptProvider(zuperService)
 
     @Provides
     fun provideOperationDataSource(
         @ApplicationContext context: Context,
-        jsProvider: JavaScriptDataSource
-    ): OperationDataSource = JavaScriptOperationDataSource(context, jsProvider)
+        jsProvider: JavaScriptProvider
+    ): OperationRunner = JavaScriptOperationRunner(context, jsProvider)
 
 }
