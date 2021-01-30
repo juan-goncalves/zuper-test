@@ -19,12 +19,17 @@ class OperationsViewModel @ViewModelInject constructor(
     val showErrorState: LiveData<Boolean> get() = _showErrorState
     private val _showErrorState: MutableLiveData<Boolean> = MutableLiveData(false)
 
+    val showLoadingState: LiveData<Boolean> get() = _showLoadingState
+    private val _showLoadingState: MutableLiveData<Boolean> = MutableLiveData(true)
+
     init {
         viewModelScope.launch {
+            _showLoadingState.postValue(true)
             when (operationsRepository.initializeExecutor()) {
                 is Result.Success -> startOperations(200)
                 is Result.Failure -> _showErrorState.postValue(true)
             }
+            _showLoadingState.postValue(false)
         }
     }
 

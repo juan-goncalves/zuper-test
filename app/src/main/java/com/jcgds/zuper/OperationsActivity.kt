@@ -40,6 +40,10 @@ class OperationsActivity : AppCompatActivity() {
         viewModel.showErrorState.observe(this) { shouldShow ->
             binding.errorState.visibility = if (shouldShow) View.VISIBLE else View.GONE
         }
+
+        viewModel.showLoadingState.observe(this) { shouldShow ->
+            binding.loadingState.visibility = if (shouldShow) View.VISIBLE else View.GONE
+        }
     }
 
 }
