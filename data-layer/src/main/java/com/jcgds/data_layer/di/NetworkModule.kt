@@ -1,6 +1,7 @@
-package com.jcgds.zuper.di
+package com.jcgds.data_layer.di
 
 import com.jcgds.data_layer.network.services.ZuperAwsService
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,8 +19,11 @@ object NetworkModule {
     fun provideHttpClient(): OkHttpClient = OkHttpClient.Builder().build()
 
     @Provides
+    fun provideMoshi(): Moshi = Moshi.Builder().build()
+
+    @Provides
     @Singleton
-    fun provideStaticJsService(httpClient: OkHttpClient): ZuperAwsService {
+    fun provideZuperService(httpClient: OkHttpClient): ZuperAwsService {
         return Retrofit.Builder()
             .baseUrl("https://s3.eu-central-1.amazonaws.com/getzuper.com/")
             .addConverterFactory(MoshiConverterFactory.create())

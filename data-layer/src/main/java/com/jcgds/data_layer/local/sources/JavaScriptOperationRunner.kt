@@ -11,15 +11,18 @@ import com.jcgds.data_layer.sources.JavaScriptProvider
 import com.jcgds.data_layer.sources.OperationRunner
 import com.jcgds.domain.entities.Message
 import com.squareup.moshi.Moshi
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class JavaScriptOperationRunner constructor(
-    applicationContext: Context,
+class JavaScriptOperationRunner @Inject constructor(
+    @ApplicationContext context: Context,
+    moshi: Moshi,
     private val jsProvider: JavaScriptProvider,
 ) : OperationRunner {
 
@@ -41,7 +44,7 @@ class JavaScriptOperationRunner constructor(
         initialized = true
     }
 
-    private val adapter = Moshi.Builder().build().adapter(MessageSchema::class.java)
+    private val adapter = moshi.adapter(MessageSchema::class.java)
 
     private val bridge = object {
         @JavascriptInterface
@@ -59,7 +62,7 @@ class JavaScriptOperationRunner constructor(
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private val webView = WebView(applicationContext).apply {
+    private val webView = WebView(context).apply {
         settings.javaScriptEnabled = true
         addJavascriptInterface(bridge, "injectedObj")
         evaluateJavascript("window.jumbo = injectedObj;", null)

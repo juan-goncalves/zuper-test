@@ -2,8 +2,9 @@ package com.jcgds.data_layer.network.sources
 
 import com.jcgds.data_layer.network.services.ZuperAwsService
 import com.jcgds.data_layer.sources.JavaScriptProvider
+import javax.inject.Inject
 
-class ZuperJavaScriptProvider constructor(
+class ZuperJavaScriptProvider @Inject constructor(
     private val jsService: ZuperAwsService
 ) : JavaScriptProvider {
 
