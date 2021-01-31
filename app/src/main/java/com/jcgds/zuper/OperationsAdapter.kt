@@ -3,12 +3,13 @@ package com.jcgds.zuper
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.jcgds.domain.entities.Operation
+import com.jcgds.domain.entities.Operation.State
 import com.jcgds.zuper.databinding.OperationListItemBinding
+import com.jcgds.zuper.extensions.getThemeColor
 
 class OperationsAdapter : RecyclerView.Adapter<OperationsAdapter.ViewHolder>() {
 
@@ -35,27 +36,25 @@ class OperationsAdapter : RecyclerView.Adapter<OperationsAdapter.ViewHolder>() {
         holder.binding.apply {
             idTextView.text = operation.id
             progressIndicator.setProgressCompat(operation.progress, true)
-            stateTextView.text = when (operation.state) {
-                Operation.State.Success -> context.getString(R.string.operation_success_state)
-                Operation.State.Error -> context.getString(R.string.operation_error_state)
-                else -> ""
-            }
+            stateTextView.text = getStatusMessage(operation, context)
 
             val overrideIndicatorColor = getIndicatorColorOverride(operation, context)
-            if (overrideIndicatorColor != null) {
-                progressIndicator.setIndicatorColor(overrideIndicatorColor)
-            }
+            progressIndicator.setIndicatorColor(overrideIndicatorColor)
         }
     }
 
-    private fun getIndicatorColorOverride(
-        operation: Operation,
-        context: Context
-    ) = when (operation.state) {
-        Operation.State.Error -> ResourcesCompat.getColor(context.resources, R.color.red, null)
-        Operation.State.Success -> ResourcesCompat.getColor(context.resources, R.color.green, null)
-        else -> null
+    private fun getStatusMessage(operation: Operation, context: Context) = when (operation.state) {
+        State.Ongoing -> context.getString(R.string.operation_ongoing_state)
+        State.Completed.Error -> context.getString(R.string.operation_completed_error_state)
+        State.Completed.Success -> context.getString(R.string.operation_completed_success_state)
     }
+
+    private fun getIndicatorColorOverride(operation: Operation, context: Context) =
+        when (operation.state) {
+            State.Completed.Error -> context.getThemeColor(R.attr.colorError)
+            State.Completed.Success -> context.getThemeColor(R.attr.colorSuccess)
+            else -> context.getThemeColor(R.attr.colorPrimary)
+        }
 
     inner class ViewHolder(val binding: OperationListItemBinding) :
         RecyclerView.ViewHolder(binding.root)

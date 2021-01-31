@@ -4,24 +4,30 @@ import com.jcgds.domain.entities.Message
 import com.jcgds.domain.entities.Operation
 import com.squareup.moshi.Json
 
-data class MessageSchema(
-    @field:Json(name = "id") val operationId: String,
-    @field:Json(name = "message") val message: String,
+data class MessageModel(
+    @field:Json(name = "id") val operationId: String?,
+    @field:Json(name = "message") val message: String?,
     @field:Json(name = "progress") val progress: Int? = null,
     @field:Json(name = "state") val state: String? = null
 )
 
-fun MessageSchema.toDomain(): Message = Message(
-    operationId,
-    message,
-    progress ?: 100,
-    state.toOperationState()
-)
-
-fun String?.toOperationState(): Operation.State {
-    return when (this) {
-        "success" -> Operation.State.Success
-        "error" -> Operation.State.Error
-        else -> Operation.State.Unknown
+fun MessageModel.toDomain(): Message? {
+    val state = when (message) {
+        "progress" -> Operation.State.Ongoing
+        "completed" -> when (state) {
+            "error" -> Operation.State.Completed.Error
+            "success" -> Operation.State.Completed.Success
+            else -> null
+        }
+        else -> null
     }
+
+    return Message(
+        operationId ?: return null,
+        state ?: return null,
+        progress ?: 100,
+    )
 }
+
+fun Message.toOperation(): Operation = Operation(operationId, operationState, progress)
+

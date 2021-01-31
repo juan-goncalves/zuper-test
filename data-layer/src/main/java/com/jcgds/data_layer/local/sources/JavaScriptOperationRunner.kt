@@ -2,10 +2,11 @@ package com.jcgds.data_layer.local.sources
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import com.jcgds.data_layer.errors.JavaScriptException
-import com.jcgds.data_layer.local.models.MessageSchema
+import com.jcgds.data_layer.local.models.MessageModel
 import com.jcgds.data_layer.local.models.toDomain
 import com.jcgds.data_layer.sources.JavaScriptProvider
 import com.jcgds.data_layer.sources.OperationRunner
@@ -55,7 +56,7 @@ class JavaScriptOperationRunner @Inject constructor(
         initialized = true
     }
 
-    private val adapter = moshi.adapter(MessageSchema::class.java)
+    private val adapter = moshi.adapter(MessageModel::class.java)
 
     private val bridge = object {
         @JavascriptInterface
@@ -63,6 +64,8 @@ class JavaScriptOperationRunner @Inject constructor(
             val message = adapter.fromJson(messageStr)?.toDomain()
             if (message != null) {
                 _messageQueue.tryEmit(message)
+            } else {
+                Log.w("JsOperationRunner", "Invalid message received: $messageStr")
             }
         }
 

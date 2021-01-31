@@ -1,6 +1,7 @@
 package com.jcgds.data_layer.repositories
 
 import com.jcgds.data_layer.errors.ExceptionHandler
+import com.jcgds.data_layer.local.models.toOperation
 import com.jcgds.data_layer.sources.OperationRunner
 import com.jcgds.domain.entities.Operation
 import com.jcgds.domain.entities.Result
@@ -18,11 +19,7 @@ class OperationRepositoryImpl @Inject constructor(
 
     override val operationsStream: Flow<List<Operation>>
         get() = runner.messageQueue.map { message ->
-            val operation = operations[message.operationId]
-            val updatedOp = operation?.copy(state = message.state, progress = message.progress)
-                ?: Operation(message.operationId, message.state, message.progress)
-
-            operations[message.operationId] = updatedOp
+            operations[message.operationId] = message.toOperation()
             operations.values.toList()
         }
 

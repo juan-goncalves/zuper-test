@@ -6,8 +6,11 @@ data class Operation(
     val progress: Int,
 ) {
     sealed class State {
-        object Success : State()
-        object Error : State()
-        object Unknown : State()
+        object Ongoing : State()
+
+        sealed class Completed : State() {
+            object Success : Completed()
+            object Error : Completed()
+        }
     }
 }
