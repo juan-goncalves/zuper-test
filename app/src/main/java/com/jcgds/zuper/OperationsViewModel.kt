@@ -8,7 +8,6 @@ import com.jcgds.domain.repositories.OperationRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.random.Random
 
 class OperationsViewModel @ViewModelInject constructor(
     private val operationsRepository: OperationRepository,
@@ -34,15 +33,17 @@ class OperationsViewModel @ViewModelInject constructor(
     }
 
     private suspend fun startOperations(amount: Int) = withContext(Dispatchers.Default) {
-        val charPool = ('a'..'z') + ('A'..'Z') + ('0'..'9')
-        for (i in 1..amount) {
-            val randomString = (1..7)
-                .map { Random.nextInt(0, charPool.size) }
-                .map(charPool::get)
-                .joinToString("")
-
-            operationsRepository.startOperation(randomString)
-        }
+        operationsRepository.startOperation("sameId")
+        operationsRepository.startOperation("sameId")
+//        val charPool = ('a'..'z') + ('A'..'Z') + ('0'..'9')
+//        for (i in 1..amount) {
+//            val randomString = (1..7)
+//                .map { Random.nextInt(0, charPool.size) }
+//                .map(charPool::get)
+//                .joinToString("")
+//
+//            operationsRepository.startOperation(randomString)
+//        }
     }
 
 
