@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Zuper</string>
+    <string name="operation_ongoing_state">…</string>
+    <string name="operation_completed_success_state">Completed</string>
+    <string name="operation_completed_error_state">Error</string>
+    <string name="error_starting_the_operations_runner">Error starting the operations runner.</string>
 </resources>
