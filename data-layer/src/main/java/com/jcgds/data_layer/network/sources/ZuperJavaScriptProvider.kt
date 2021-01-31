@@ -2,6 +2,8 @@ package com.jcgds.data_layer.network.sources
 
 import com.jcgds.data_layer.network.services.ZuperAwsService
 import com.jcgds.data_layer.sources.JavaScriptProvider
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ZuperJavaScriptProvider @Inject constructor(
@@ -10,7 +12,10 @@ class ZuperJavaScriptProvider @Inject constructor(
 
     override suspend fun getOperationsRunner(): String {
         val response = zuperService.downloadOperationsJsFile()
-        return response.charStream().readText()
+        val stream = response.charStream()
+        val result = stream.readText()
+        withContext(Dispatchers.IO) { stream.close() }
+        return result
     }
 
 }
