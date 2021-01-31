@@ -26,9 +26,14 @@ class OperationRepositoryImpl @Inject constructor(
             operations.values.toList()
         }
 
-    override suspend fun startOperation(id: String) {
-        // TODO: Handle exceptions and wrap with Result<>
-        runner.startOperation(id)
+    override suspend fun enqueueOperation(id: String): Result<Unit> {
+        return try {
+            runner.startOperation(id)
+            Result.Success(Unit)
+        } catch (e: Exception) {
+            val message = exceptionHandler.handle(e)
+            Result.Failure(message)
+        }
     }
 
     override suspend fun initializeExecutor(): Result<Unit> {

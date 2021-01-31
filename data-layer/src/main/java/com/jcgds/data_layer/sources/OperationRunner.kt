@@ -12,7 +12,7 @@ interface OperationRunner {
     suspend fun initialize()
 
     /**
-     * Enqueues an operation to be started.
+     * Enqueues an operation to be executed.
      * As the initialization is deferred, errors are published through the [errorsStream] field.
      * */
     suspend fun startOperation(id: String)

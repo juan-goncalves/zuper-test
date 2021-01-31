@@ -33,8 +33,8 @@ class OperationsViewModel @ViewModelInject constructor(
     }
 
     private suspend fun startOperations(amount: Int) = withContext(Dispatchers.Default) {
-        operationsRepository.startOperation("sameId")
-        operationsRepository.startOperation("sameId")
+        operationsRepository.enqueueOperation("sameId")
+        operationsRepository.enqueueOperation("sameId")
 //        val charPool = ('a'..'z') + ('A'..'Z') + ('0'..'9')
 //        for (i in 1..amount) {
 //            val randomString = (1..7)

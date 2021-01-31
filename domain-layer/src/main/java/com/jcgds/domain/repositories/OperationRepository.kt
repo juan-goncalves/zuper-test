@@ -10,7 +10,6 @@ interface OperationRepository {
 
     suspend fun initializeExecutor(): Result<Unit>
 
-    // TODO: return Result<Operation>
-    suspend fun startOperation(id: String)
+    suspend fun enqueueOperation(id: String): Result<Unit>
 
 }
