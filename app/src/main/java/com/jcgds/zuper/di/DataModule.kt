@@ -8,7 +8,6 @@ import com.jcgds.data_layer.sources.OperationRunner
 import com.jcgds.domain.repositories.OperationRepository
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 
@@ -16,12 +15,8 @@ import dagger.hilt.android.components.ApplicationComponent
 @InstallIn(ApplicationComponent::class)
 abstract class DataModule {
 
-    companion object {
-        @Provides
-        fun provideOperationRepository(
-            runner: OperationRunner
-        ): OperationRepository = OperationRepositoryImpl(runner)
-    }
+    @Binds
+    abstract fun bindOperationRepository(impl: OperationRepositoryImpl): OperationRepository
 
     @Binds
     abstract fun bindJavaScriptProvider(impl: ZuperJavaScriptProvider): JavaScriptProvider

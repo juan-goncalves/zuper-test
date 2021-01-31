@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
+import com.jcgds.data_layer.errors.JavaScriptException
 import com.jcgds.data_layer.local.models.MessageSchema
 import com.jcgds.data_layer.local.models.toDomain
 import com.jcgds.data_layer.sources.JavaScriptProvider
@@ -18,8 +19,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-
-class JavaScriptException(message: String?) : RuntimeException(message)
 
 class JavaScriptOperationRunner @Inject constructor(
     @ApplicationContext context: Context,
