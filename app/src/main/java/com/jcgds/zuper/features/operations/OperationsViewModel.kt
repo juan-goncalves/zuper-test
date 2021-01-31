@@ -1,4 +1,4 @@
-package com.jcgds.zuper
+package com.jcgds.zuper.features.operations
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*

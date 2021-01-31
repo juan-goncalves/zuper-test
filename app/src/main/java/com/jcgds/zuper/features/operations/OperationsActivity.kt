@@ -1,4 +1,4 @@
-package com.jcgds.zuper
+package com.jcgds.zuper.features.operations
 
 import android.os.Bundle
 import android.view.View

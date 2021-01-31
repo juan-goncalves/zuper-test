@@ -21,7 +21,8 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class JavaScriptOperationRunner @Inject constructor(
+/** Executes operations using a [WebView] as a JavaScript evaluator. */
+class WebViewJsOperationRunner @Inject constructor(
     @ApplicationContext context: Context,
     moshi: Moshi,
     private val jsProvider: JavaScriptProvider,
@@ -93,6 +94,10 @@ class JavaScriptOperationRunner @Inject constructor(
         }
     }
 
+    /**
+     * Catches exceptions in the received JavaScript code and pipes them to the Kotlin code using
+     * the [bridge] injected object.
+     * */
     private fun String.catchingExceptionsInBridge(): String {
         return """
             try {

@@ -1,4 +1,4 @@
-package com.jcgds.zuper
+package com.jcgds.zuper.features.operations
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.jcgds.domain.entities.Operation
 import com.jcgds.domain.entities.Operation.State
+import com.jcgds.zuper.R
 import com.jcgds.zuper.databinding.OperationListItemBinding
 import com.jcgds.zuper.extensions.getThemeColor
 

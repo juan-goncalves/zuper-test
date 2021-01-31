@@ -9,11 +9,13 @@ interface OperationRunner {
 
     val errorsStream: Flow<Exception>
 
+    /** Ensures that the runner is ready to execute operations. */
     suspend fun initialize()
 
     /**
      * Enqueues an operation to be executed.
-     * As the initialization is deferred, errors are published through the [errorsStream] field.
+     * The OperationRunner must be initialized using the [initialize] method.
+     * As the operation start is deferred, errors are published through the [errorsStream] field.
      * */
     suspend fun startOperation(id: String)
 
