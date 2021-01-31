@@ -5,3 +5,5 @@ data class Message(
     val operationState: Operation.State,
     val progress: Int,
 )
+
+fun Message.toOperation(): Operation = Operation(operationId, operationState, progress)

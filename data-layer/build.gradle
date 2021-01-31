@@ -47,4 +47,8 @@ dependencies {
     api Deps.moshi
 
     kapt Deps.dagger_hilt_compiler
+
+    testImplementation Deps.junit
+    testImplementation Deps.hamcrest
+    testImplementation Deps.coroutines_test
 }

@@ -18,6 +18,7 @@ object Versions {
     const val junit = "4.13.1"
     const val androidx_junit = "1.1.1"
     const val espresso = "3.3.0"
+    const val hamcrest = "2.2"
 }
 
 @Suppress("unused")
@@ -27,6 +28,8 @@ object Deps {
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
     const val android_coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
     const val android_gradle = "com.android.tools.build:gradle:${Versions.android_gradle}"
+    const val coroutines_test =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
 
     const val androidx_core_ktx = "androidx.core:core-ktx:${Versions.androidx_core}"
     const val androidx_appcompat = "androidx.appcompat:appcompat:${Versions.androidx_appcompat}"
@@ -48,4 +51,5 @@ object Deps {
     const val junit = "junit:junit:${Versions.junit}"
     const val androidx_junit = "androidx.test.ext:junit:${Versions.androidx_junit}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
+    const val hamcrest = "org.hamcrest:hamcrest-library:${Versions.hamcrest}"
 }

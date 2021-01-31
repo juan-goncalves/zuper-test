@@ -12,7 +12,7 @@ data class MessageModel(
 )
 
 fun MessageModel.toDomain(): Message? {
-    val state = when (message) {
+    val operationState = when (message) {
         "progress" -> Operation.State.Ongoing
         "completed" -> when (state) {
             "error" -> Operation.State.Completed.Error
@@ -22,12 +22,15 @@ fun MessageModel.toDomain(): Message? {
         else -> null
     }
 
+    val operationProgress = when {
+        operationState is Operation.State.Completed -> 100
+        progress == null || progress < 0 && operationState == Operation.State.Ongoing -> return null
+        else -> progress
+    }
+
     return Message(
         operationId ?: return null,
-        state ?: return null,
-        progress ?: 100,
+        operationState ?: return null,
+        operationProgress,
     )
 }
-
-fun Message.toOperation(): Operation = Operation(operationId, operationState, progress)
-
